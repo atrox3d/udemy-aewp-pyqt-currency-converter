@@ -7,6 +7,12 @@ from PyQt6.QtWidgets import (
     QLineEdit
 )
 
+
+def make_sentence():
+    input_text = text.text()
+    output.setText(input_text.title() + '.')
+
+
 app = QApplication([])
 window = QWidget()
 window.setWindowTitle('Sentence Maker')
@@ -18,6 +24,10 @@ layout.addWidget(text)
 
 btn = QPushButton('Make')
 layout.addWidget(btn)
+btn.clicked.connect(make_sentence)
+
+output = QLabel('')
+layout.addWidget(output)
 
 window.setLayout(layout)
 window.show()
