@@ -2,6 +2,7 @@ from PyQt6.QtWidgets import (
     QApplication,
     QWidget,
     QVBoxLayout,
+    QHBoxLayout,
     QLabel,
     QPushButton,
     QLineEdit,
@@ -28,21 +29,29 @@ window = QWidget()
 window.setWindowTitle('Currency Converter')
 
 layout = QVBoxLayout()
+layout1 = QHBoxLayout()
+layout.addLayout(layout1)
+
+layout2 = QVBoxLayout()
+layout1.addLayout(layout2)
+layout3 = QVBoxLayout()
+layout1.addLayout(layout3)
+
 
 currencies = ['USD', 'EUR', 'INR']
 from_combo = QComboBox()
 from_combo.addItems(currencies)
-layout.addWidget(from_combo)
+layout2.addWidget(from_combo)
 
 to_combo = QComboBox()
 to_combo.addItems(currencies)
-layout.addWidget(to_combo)
+layout2.addWidget(to_combo)
 
 text = QLineEdit()
-layout.addWidget(text)
+layout3.addWidget(text)
 
 btn = QPushButton('Convert')
-layout.addWidget(btn)
+layout3.addWidget(btn)
 btn.clicked.connect(show_currency)
 
 output = QLabel('')
