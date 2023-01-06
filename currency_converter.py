@@ -4,7 +4,8 @@ from PyQt6.QtWidgets import (
     QVBoxLayout,
     QLabel,
     QPushButton,
-    QLineEdit
+    QLineEdit,
+    QComboBox
 )
 
 
@@ -13,10 +14,13 @@ from currency_scraper import get_currency
 
 def show_currency():
     input_text = text.text()
-    rate = get_currency('EUR', 'USD')
-    value = float(input_text) * rate
-    print(value)
-    output.setText(str(value))
+    from_currency = from_combo.currentText()
+    to_currency = to_combo.currentText()
+    rate = get_currency(from_currency, to_currency)
+    value = round(float(input_text) * rate, 2)
+    print(f'{value=}')
+    message = f'{input_text} {from_currency} is {value} {to_currency}'
+    output.setText(message)
 
 
 app = QApplication([])
@@ -24,6 +28,15 @@ window = QWidget()
 window.setWindowTitle('Currency Converter')
 
 layout = QVBoxLayout()
+
+currencies = ['USD', 'EUR', 'INR']
+from_combo = QComboBox()
+from_combo.addItems(currencies)
+layout.addWidget(from_combo)
+
+to_combo = QComboBox()
+to_combo.addItems(currencies)
+layout.addWidget(to_combo)
 
 text = QLineEdit()
 layout.addWidget(text)
